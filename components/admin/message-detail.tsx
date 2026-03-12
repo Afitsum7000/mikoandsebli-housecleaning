@@ -35,6 +35,8 @@ interface Message {
   email: string
   phone: string | null
   service: string | null
+  address: string | null
+  requested_date: string | null
   message: string
   status: string
   created_at: string
@@ -45,10 +47,21 @@ interface MessageDetailProps {
 }
 
 const statusConfig: Record<string, { label: string; color: string; icon: React.ReactNode }> = {
-  new: { label: "New", color: "bg-blue-100 text-blue-700 border-blue-200", icon: <Inbox className="h-4 w-4" /> },
-  in_progress: { label: "In Progress", color: "bg-yellow-100 text-yellow-700 border-yellow-200", icon: <Clock className="h-4 w-4" /> },
-  resolved: { label: "Resolved", color: "bg-green-100 text-green-700 border-green-200", icon: <CheckCircle2 className="h-4 w-4" /> },
-  closed: { label: "Closed", color: "bg-gray-100 text-gray-700 border-gray-200", icon: <XCircle className="h-4 w-4" /> },
+  new: {
+    label: "New",
+    color: "bg-blue-100 text-blue-700 border-blue-200",
+    icon: <Inbox className="h-4 w-4" />,
+  },
+  contacted: {
+    label: "Contacted",
+    color: "bg-yellow-100 text-yellow-700 border-yellow-200",
+    icon: <Clock className="h-4 w-4" />,
+  },
+  completed: {
+    label: "Completed",
+    color: "bg-green-100 text-green-700 border-green-200",
+    icon: <CheckCircle2 className="h-4 w-4" />,
+  },
 }
 
 const serviceLabels: Record<string, string> = {
@@ -177,22 +190,16 @@ export function MessageDetail({ message }: MessageDetailProps) {
                         New
                       </span>
                     </SelectItem>
-                    <SelectItem value="in_progress">
+                    <SelectItem value="contacted">
                       <span className="flex items-center gap-2">
                         <Clock className="h-4 w-4 text-yellow-600" />
-                        In Progress
+                        Contacted
                       </span>
                     </SelectItem>
-                    <SelectItem value="resolved">
+                    <SelectItem value="completed">
                       <span className="flex items-center gap-2">
                         <CheckCircle2 className="h-4 w-4 text-green-600" />
-                        Resolved
-                      </span>
-                    </SelectItem>
-                    <SelectItem value="closed">
-                      <span className="flex items-center gap-2">
-                        <XCircle className="h-4 w-4 text-gray-600" />
-                        Closed
+                        Completed
                       </span>
                     </SelectItem>
                   </SelectContent>
@@ -257,6 +264,17 @@ export function MessageDetail({ message }: MessageDetailProps) {
                 ) : (
                   <p className="text-muted-foreground">Not specified</p>
                 )}
+              </div>
+            </div>
+            <div className="flex items-start gap-3">
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
+                <Briefcase className="h-5 w-5 text-primary" />
+              </div>
+              <div>
+                <p className="text-xs text-muted-foreground">Address</p>
+                <p className="font-medium text-foreground">
+                  {message.address || "Not provided"}
+                </p>
               </div>
             </div>
           </div>

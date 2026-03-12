@@ -42,6 +42,8 @@ export function ContactForm() {
       email: formData.get("email") as string,
       phone: formData.get("phone") as string,
       service: selectedService || null,
+      address: (formData.get("address") as string) || null,
+      requestedDate: (formData.get("requested_date") as string) || null,
       message: formData.get("message") as string,
     }
 
@@ -134,6 +136,27 @@ export function ContactForm() {
             name="phone"
             type="tel"
             placeholder="+251 911 123 456"
+            disabled={isSubmitting}
+          />
+        </Field>
+
+        <Field>
+          <FieldLabel htmlFor="address">Address (Optional)</FieldLabel>
+          <Input
+            id="address"
+            name="address"
+            type="text"
+            placeholder="Street, area, city"
+            disabled={isSubmitting}
+          />
+        </Field>
+
+        <Field>
+          <FieldLabel htmlFor="requested_date">Requested Date (Optional)</FieldLabel>
+          <Input
+            id="requested_date"
+            name="requested_date"
+            type="date"
             disabled={isSubmitting}
           />
         </Field>

@@ -4,7 +4,7 @@ import { createClient } from "@/lib/supabase/server"
 export async function POST(request: Request) {
   try {
     const body = await request.json()
-    const { name, email, phone, service, message } = body
+    const { name, email, phone, service, address, requestedDate, message } = body
 
     // Validate required fields
     if (!name || !email || !message) {
@@ -30,6 +30,8 @@ export async function POST(request: Request) {
       email,
       phone: phone || null,
       service: service || null,
+      address: address || null,
+      requested_date: requestedDate || null,
       message,
       status: "new",
     })
