@@ -6,10 +6,26 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
 import { Field, FieldGroup, FieldLabel } from "@/components/ui/field"
+import { 
+  Select, 
+  SelectContent, 
+  SelectItem, 
+  SelectTrigger, 
+  SelectValue 
+} from "@/components/ui/select"
 import { Spinner } from "@/components/ui/spinner"
 import { CheckCircle2, AlertCircle } from "lucide-react"
 
+const services = [
+  { value: "residential", label: "Residential Cleaning" },
+  { value: "office", label: "Office Cleaning" },
+  { value: "deep", label: "Deep Cleaning" },
+  { value: "move", label: "Move In/Out Cleaning" },
+  { value: "other", label: "Other" },
+]
+
 export function ContactForm() {
+  const [selectedService, setSelectedService] = useState("")
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle")
   const [errorMessage, setErrorMessage] = useState("")
@@ -25,6 +41,7 @@ export function ContactForm() {
       name: formData.get("name") as string,
       email: formData.get("email") as string,
       phone: formData.get("phone") as string,
+      service: selectedService || null,
       message: formData.get("message") as string,
     }
 
@@ -43,6 +60,7 @@ export function ContactForm() {
       }
 
       setStatus("success")
+      setSelectedService("")
       ;(event.target as HTMLFormElement).reset()
     } catch (error) {
       setStatus("error")
@@ -118,6 +136,26 @@ export function ContactForm() {
             placeholder="+251 911 123 456"
             disabled={isSubmitting}
           />
+        </Field>
+
+        <Field>
+          <FieldLabel htmlFor="service">Service Type</FieldLabel>
+          <Select 
+            value={selectedService} 
+            onValueChange={setSelectedService}
+            disabled={isSubmitting}
+          >
+            <SelectTrigger id="service">
+              <SelectValue placeholder="Select a service" />
+            </SelectTrigger>
+            <SelectContent>
+              {services.map((service) => (
+                <SelectItem key={service.value} value={service.value}>
+                  {service.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </Field>
 
         <Field>

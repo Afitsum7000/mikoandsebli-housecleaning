@@ -1,22 +1,22 @@
-"use client";
+"use client"
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import {
-  Menu,
-  Phone,
-  Sparkles,
-  Home,
-  Users,
-  Briefcase,
-  FileText,
-  HelpCircle,
+import Link from "next/link"
+import { usePathname } from "next/navigation"
+import { useState } from "react"
+import { Button } from "@/components/ui/button"
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import { 
+  Menu, 
+  Phone, 
+  Sparkles, 
+  Home, 
+  Users, 
+  Briefcase, 
+  FileText, 
+  HelpCircle, 
   Mail,
-  X,
-} from "lucide-react";
+  X
+} from "lucide-react"
 
 const navigation = [
   { name: "Home", href: "/", icon: Home },
@@ -25,11 +25,11 @@ const navigation = [
   { name: "Blog", href: "/blog", icon: FileText },
   { name: "FAQ", href: "/faq", icon: HelpCircle },
   { name: "Contact", href: "/contact", icon: Mail },
-];
+]
 
 export function Header() {
-  const [isOpen, setIsOpen] = useState(false);
-  const pathname = usePathname();
+  const [isOpen, setIsOpen] = useState(false)
+  const pathname = usePathname()
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -43,9 +43,7 @@ export function Header() {
             <span className="font-[family-name:var(--font-heading)] text-lg font-bold leading-tight text-foreground">
               Sebli & Miko
             </span>
-            <span className="text-xs text-muted-foreground">
-              House Cleaning
-            </span>
+            <span className="text-xs text-muted-foreground">House Cleaning</span>
           </div>
         </Link>
 
@@ -84,8 +82,8 @@ export function Header() {
               <span className="sr-only">Toggle menu</span>
             </Button>
           </SheetTrigger>
-          <SheetContent
-            side="right"
+          <SheetContent 
+            side="right" 
             className="w-[320px] border-l border-border/50 bg-background/98 p-0 backdrop-blur-xl [&>button]:hidden"
           >
             <div className="flex h-full flex-col">
@@ -104,9 +102,9 @@ export function Header() {
                     </span>
                   </div>
                 </div>
-                <Button
-                  variant="ghost"
-                  size="icon"
+                <Button 
+                  variant="ghost" 
+                  size="icon" 
                   onClick={() => setIsOpen(false)}
                   className="h-10 w-10 rounded-full bg-muted/50 hover:bg-muted"
                 >
@@ -119,33 +117,28 @@ export function Header() {
               <nav className="flex-1 px-6 py-6">
                 <ul className="flex flex-col gap-2">
                   {navigation.map((item, index) => {
-                    const Icon = item.icon;
-                    const isActive = pathname === item.href;
+                    const Icon = item.icon
+                    const isActive = pathname === item.href
                     return (
-                      <li
+                      <li 
                         key={item.name}
                         className="animate-in fade-in slide-in-from-right-4"
-                        style={{
-                          animationDelay: `${index * 50}ms`,
-                          animationFillMode: "both",
-                        }}
+                        style={{ animationDelay: `${index * 50}ms`, animationFillMode: 'both' }}
                       >
                         <Link
                           href={item.href}
                           onClick={() => setIsOpen(false)}
                           className={`flex items-center gap-4 rounded-lg px-4 py-3 text-lg font-medium transition-all duration-200 ${
-                            isActive
-                              ? "bg-primary/10 text-primary"
+                            isActive 
+                              ? "bg-primary/10 text-primary" 
                               : "text-foreground hover:bg-primary/5 hover:text-primary"
                           }`}
                         >
-                          <Icon
-                            className={`h-5 w-5 ${isActive ? "text-primary" : "text-muted-foreground"}`}
-                          />
+                          <Icon className={`h-5 w-5 ${isActive ? "text-primary" : "text-muted-foreground"}`} />
                           {item.name}
                         </Link>
                       </li>
-                    );
+                    )
                   })}
                 </ul>
               </nav>
@@ -160,16 +153,12 @@ export function Header() {
                     <Phone className="h-5 w-5 text-primary" />
                   </div>
                   <div className="flex flex-col">
-                    <span className="text-xs text-muted-foreground">
-                      Call us now
-                    </span>
-                    <span className="font-semibold text-foreground">
-                      +251 911 123 456
-                    </span>
+                    <span className="text-xs text-muted-foreground">Call us now</span>
+                    <span className="font-semibold text-foreground">+251 911 123 456</span>
                   </div>
                 </a>
-                <Button
-                  asChild
+                <Button 
+                  asChild 
                   className="w-full rounded-xl bg-primary py-6 text-base font-semibold shadow-lg shadow-primary/25 transition-all hover:bg-primary/90 hover:shadow-xl hover:shadow-primary/30"
                 >
                   <Link href="/contact" onClick={() => setIsOpen(false)}>
@@ -182,5 +171,5 @@ export function Header() {
         </Sheet>
       </div>
     </header>
-  );
+  )
 }
